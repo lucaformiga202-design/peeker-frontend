@@ -22,7 +22,6 @@
             display: none !important; 
         }
 
-        /* Tela Inicial */
         #homePage { 
             display: flex; 
             flex-direction: column; 
@@ -41,7 +40,6 @@
             margin-bottom: 2rem; 
         }
 
-        /* Cabeçalho de Resultados */
         #resultsPage { 
             padding: 2rem; 
         }
@@ -64,7 +62,6 @@
             -webkit-text-fill-color: transparent; 
         }
 
-        /* Campo de Busca */
         .search-box { 
             display: flex; 
             align-items: center; 
@@ -110,7 +107,6 @@
             opacity: 0.9;
         }
 
-        /* Lista de Resultados */
         .results-container { 
             max-width: 700px; 
             display: flex; 
@@ -153,7 +149,6 @@
 </head>
 <body>
 
-    <!-- TELA INICIAL -->
     <section id="homePage">
         <div style="text-align: center; width: 90%; max-width: 600px;">
             <h1 class="logo-large">peeker</h1>
@@ -164,7 +159,6 @@
         </div>
     </section>
 
-    <!-- TELA DE RESULTADOS -->
     <section id="resultsPage" class="hidden">
         <header class="header">
             <span class="logo-small" onclick="goHome()">peeker</span>
@@ -205,7 +199,7 @@
                 const response = await fetch(`${BACKEND_URL}/search?q=${encodeURIComponent(query)}`);
                 
                 if (!response.ok) {
-                    throw new Error('Falha na requisição');
+                    throw new Error('Erro na requisição');
                 }
 
                 const results = await response.json();
@@ -217,17 +211,17 @@
                         appendResultCard(
                             item.title,
                             item.url,
-                            item.description || 'Sem descrição disponível.'
+                            item.description
                         );
                     });
                 } else {
-                    resultsList.innerHTML = `<p style="color: #94a3b8;">Nenhum resultado direto encontrado para "<strong>${query}</strong>".</p>`;
+                    resultsList.innerHTML = `<p style="color: #94a3b8;">Nenhum resultado encontrado para "<strong>${query}</strong>".</p>`;
                 }
             } catch (error) {
                 resultsList.innerHTML = `
                     <div class="result-card">
                         <p style="color: #f87171; font-weight: bold;">Erro de Comunicação</p>
-                        <p class="result-snippet">Não foi possível conectar ao backend. Verifique se o Render concluiu a atualização.</p>
+                        <p class="result-snippet">Não foi possível conectar ao servidor backend. Verifique se a chave da Serper API foi configurada corretamente.</p>
                     </div>
                 `;
             }
