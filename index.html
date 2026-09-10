@@ -193,13 +193,13 @@
         }
 
         async function fetchServerResults(query) {
-            resultsList.innerHTML = `<p style="color: #94a3b8;">Buscando na web por "<strong>${query}</strong>"...</p>`;
+            resultsList.innerHTML = `<p style="color: #94a3b8;">Buscando por "<strong>${query}</strong>" em múltiplos motores de busca...</p>`;
 
             try {
                 const response = await fetch(`${BACKEND_URL}/search?q=${encodeURIComponent(query)}`);
                 
                 if (!response.ok) {
-                    throw new Error('Erro na requisição');
+                    throw new Error('Erro na comunicação');
                 }
 
                 const results = await response.json();
@@ -221,7 +221,7 @@
                 resultsList.innerHTML = `
                     <div class="result-card">
                         <p style="color: #f87171; font-weight: bold;">Erro de Comunicação</p>
-                        <p class="result-snippet">Não foi possível conectar ao servidor backend. Verifique se a chave da Serper API foi configurada corretamente.</p>
+                        <p class="result-snippet">Não foi possível conectar ao backend no momento. Aguarde alguns instantes até o Render concluir a implantação.</p>
                     </div>
                 `;
             }
